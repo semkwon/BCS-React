@@ -3,6 +3,7 @@ import { useState } from "react";
 
 const Chat = () => {
   const [question, setQuestion] = useState("");
+  const [content, setContent] = useState("");
 
   const onSubmitChat = async (e) => {
     try {
@@ -23,13 +24,15 @@ const Chat = () => {
       );
 
       console.log(response);
+      // 결과값 넣기
+      setContent(response.data.choices[0].message.content);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="bg-black min-h-screen flex justify-center items-center text-white">
+    <div className="bg-black min-h-screen flex flex-col justify-center items-center text-white">
       <form onSubmit={onSubmitChat}>
         <input
           className="text-black"
@@ -39,6 +42,8 @@ const Chat = () => {
         />
         <input type="submit" value="검 색" />
       </form>
+      {/* 결과값 넣기 왼쪽 값에 있을 때만 컴포넌트 내용이 실행*/}
+      {content && <div className="mt-4 px-16">{content}</div>}
     </div>
   );
 };
