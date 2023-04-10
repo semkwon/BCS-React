@@ -2,13 +2,13 @@ import axios from "axios";
 import { useState } from "react";
 
 const Chat = () => {
-  const [question, setQuestion] = useState("");
+  const [question, setQuestion] = useState(""); // 질문 받기
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmitChat = async (e) => {
     try {
-      e.preventDefault();
+      e.preventDefault(); // 새로고침 현상 막기
 
       // 검색 중 alert 창 띄우기
       if (isLoading) {
@@ -52,11 +52,12 @@ const Chat = () => {
         return;
       }
 
+      // 200번일 경우에는 여기!
       console.log(response);
       // 결과값 넣기
       setContent(response.data.choices[0].message.content);
 
-      // 로딩중 false로 변경
+      // 로딩중 false로 변경, 로딩이 중복적으로 일어나지 않게끔
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -72,7 +73,7 @@ const Chat = () => {
           className="text-black"
           type="text"
           value={question}
-          onChange={(e) => setQuestion(e.target.value)}
+          onChange={(e) => setQuestion(e.target.value)} // 그동안 입력한 값이 question에 들어간다
         />
         <input type="submit" value="검 색" />
       </form>
