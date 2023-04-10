@@ -1,10 +1,31 @@
+import axios from "axios";
 import { useState } from "react";
 
 const Chat = () => {
-  const [question, setQuestion] = useState("abc");
+  const [question, setQuestion] = useState("");
 
-  const onSubmitChat = (e) => {
-    e.preventDefault();
+  const onSubmitChat = async (e) => {
+    try {
+      e.preventDefault();
+
+      const response = await axios.post(
+        "https://holy-fire-2749.fly.dev/chat",
+        {
+          // 그냥 question만 써도 된다 - 키 값과 밸류값이 같을 때는 생략 가능 ( question: question,)
+          // useState를 사용해서 question에 넣어줘 질문 값을 변경해준다.
+          question,
+        },
+        {
+          headers: {
+            Authorization: "Bearer BLOCKCHAINSCHOOL3",
+          },
+        }
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -14,9 +35,7 @@ const Chat = () => {
           className="text-black"
           type="text"
           value={question}
-          onChange={(e) => {
-            setQuestion(e.target.value);
-          }}
+          onChange={(e) => setQuestion(e.target.value)}
         />
         <input type="submit" value="검 색" />
       </form>
