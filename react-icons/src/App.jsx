@@ -1,7 +1,7 @@
-import Weather from "./components/Weather";
+import Chat from "./components/Chat";
 
 function App() {
-  return <Weather />;
+  return <Chat />;
 }
 
 export default App;
