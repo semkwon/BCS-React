@@ -5,6 +5,8 @@ const app = express();
 
 const port = 3010;
 
+app.use(express.json()); //json 형식을 읽어오는 방법(미들웨어?)
+
 app.use("/todo", todoRouter);
 
 app.post("/", (req, res) => {
