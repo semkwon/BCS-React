@@ -1,9 +1,28 @@
-const fruits = ["apple", "banana", "kiwi", "orange", "melon"];
-console.log(fruits);
-
-//다섯글자 이상만 빼기
-const moreThanFiveLetters = fruits.filter((v, i) => {
-  return v.length >= 5;
+const foods = [
+  { type: "fruit", name: "apple" },
+  { type: "vegetable", name: "carrot" },
+  { type: "fruit", name: "banana" },
+  { type: "vegetable", name: "potato" },
+  { type: "fruit", name: "kiwi" },
+  { type: "vegetable", name: "tomato" },
+  { type: "fruit", name: "orange" },
+];
+//
+const onlyFruits = foods.filter((v, i) => {
+  return v.type === "fruit";
 });
 
-console.log(moreThanFiveLetters);
+//결과값은 넣어준 조건값(type)인 true, false
+const mapFruits = foods.map((v, i) => {
+  return v.type === "fruit";
+});
+
+const mapFruitsIf = foods.map((v, i) => {
+  if (v.type === "fruits") {
+    return v;
+  }
+});
+
+console.log(onlyFruits);
+console.log(mapFruits);
+console.log(mapFruitsIf);
