@@ -21,6 +21,32 @@ router.post("/", (req, res) => {
   res.json(todoData); // json에 데이터 넣기
 });
 
+// put
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const { title, desc } = req.body;
+
+  if (parseInt(id) >= todoData.length) {
+    res.status(400).json({ error: "존재하지 않는 ID입니다." });
+  }
+
+  if (!title && !desc) {
+    res
+      .status(400)
+      .json({ error: "타이틀이나 설명 중에 하나의 값은 입력해야 합니다." });
+  }
+
+  todoData[parseInt(id)] = {
+    title,
+    desc,
+    isDone: todoData[parseInt(id)].isDone,
+  };
+
+  console.log(todoData);
+
+  res.json(todoData);
+});
+
 //done
 // 주소로 오는건 params
 router.put("/done/:id", (req, res) => {
