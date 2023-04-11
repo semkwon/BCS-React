@@ -26,6 +26,10 @@ router.post("/", (req, res) => {
 router.put("/done/:id", (req, res) => {
   const { id } = req.params;
 
+  if (parseInt(id) >= todoData.length) {
+    res.status(400).json({ error: "존재하지 않는 ID입니다." });
+  }
+
   todoData[parseInt(id)] = {
     title: todoData[parseInt(id)].title,
     desc: todoData[parseInt(id)].desc,
@@ -40,6 +44,23 @@ router.put("/done/:id", (req, res) => {
 });
 
 //delete
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  if (parseInt(id) >= todoData.length) {
+    res.status(400).json({ error: "존재하지 않는 ID입니다." });
+  }
+
+  todoData = todoData.filter((v, i) => {
+    // i= 배열의 길이가 같으면 삭제한다, 같지 않으면 true임으로 배열에 더해진다.
+    // !== -> 다른가? 응 달라 그럼 -> true
+    // 겹치는값은 삭제해 없앤다.
+    return parseInt(id) !== i;
+  });
+
+  console.log(todoData);
+
+  res.json(todoData);
+});
 
 module.exports = router;
