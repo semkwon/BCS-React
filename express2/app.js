@@ -7,7 +7,7 @@ const app = express();
 
 const port = 3010;
 
-//.use는 미들웨어
+// use는 미들웨어
 app.use("/user", userRouter);
 app.use("/tweet", tweetRouter);
 
