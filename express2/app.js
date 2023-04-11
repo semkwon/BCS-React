@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
   res.send("Hello, Express!");
 });
 
+//서버 켜졌을 때 실행됨
 app.listen(port, () => {
   console.log(`Server listening on port: ${port} 🚀🚀🚀`);
 });
