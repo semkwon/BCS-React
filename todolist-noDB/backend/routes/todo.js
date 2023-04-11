@@ -39,4 +39,7 @@ router.put("/done/:id", (req, res) => {
   res.json(todoData);
 });
 
+//delete
+router.delete("/:id", (req, res) => {});
+
 module.exports = router;
