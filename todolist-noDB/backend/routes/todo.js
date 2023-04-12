@@ -1,7 +1,5 @@
 const express = require("express");
-
 let todoData = require("../todoData.json");
-
 const router = express.Router();
 
 // 전체 투두리스트 조회
@@ -17,10 +15,10 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
+  // if문 안에 있는 조건은 return을 사용해줘야한다.
   if (parseInt(id) >= todoData.length) {
     return res.status(400).json({ error: "존재하지 않는 ID입니다." });
   }
-
   res.json(todoData[parseInt(id)]);
 });
 
@@ -35,18 +33,19 @@ router.post("/", (req, res) => {
       .status(400)
       .json({ error: "타이틀과 설명을 입력하셔야 합니다." });
   }
-  todoData.push({ title, desc, isDone: false }); // {title:title, desc:desc} 와 같음
+  // return으로 끝내지 않으면 아래의 push와 log 두가지가 실행된다
+  // return이 없어도 res는 한번만 실행되기 때문에 아래의 res는 실행 안된다.
+  todoData.push({ title, desc, isDone: false }); // {title:title, desc:desc} 와 같음 // todoData에 새로운 데이터 넣기
 
   console.log(todoData);
 
-  res.json(todoData); // json에 데이터 넣기
+  res.json(todoData);
 });
 
 // put 투두 수정
 router.put("/:id", (req, res) => {
   // id조회하기 위해서 parameter
   const { id } = req.params;
-  //
   const { title, desc } = req.body;
 
   if (parseInt(id) >= todoData.length) {
@@ -103,6 +102,7 @@ router.delete("/:id", (req, res) => {
     return res.status(400).json({ error: "존재하지 않는 ID입니다." });
   }
 
+  // ?????? 여기 잘 이해 안감 v랑 i랑
   todoData = todoData.filter((v, i) => {
     // i= 배열의 길이가 같으면 삭제한다, 같지 않으면 true임으로 배열에 더해진다.
     // !== -> 다른가? 응 달라 그럼 -> true

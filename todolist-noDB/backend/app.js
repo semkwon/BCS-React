@@ -1,5 +1,5 @@
 const express = require("express");
-const todoRouter = require("./routes/todo");
+const todoRouter = require("./routes/todo"); // DB가 없는 경우여서 json파일을 사용
 
 const app = express();
 
