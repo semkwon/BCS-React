@@ -1,6 +1,25 @@
+import axios from "axios"; // 새 터미널에서 npm i axios하고 import로 불러오기
 import TodoCard from "./components/TodoCard";
+import { useEffect } from "react";
 
 function App() {
+  const getToDoList = async () => {
+    try {
+      //axios 요청
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/todo`
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getToDoList();
+  }, []);
+
   return (
     <div className="min-h-screen bg-blue-200 flex flex-col justify-start items-center pt-16">
       <h1 className="text-4xl font-bold">AWESOME TO DO LIST 😎</h1>
