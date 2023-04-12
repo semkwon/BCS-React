@@ -25,7 +25,9 @@ function App() {
           />
         </form>
         <ul className="mt-16 flex flex-col w-1/2">
-          <TodoCard />
+          <TodoCard title="🧘🏻‍♂️ 명상" />
+          <TodoCard title="🧑‍💻 코딩 공부" />
+          <TodoCard title="🏋️ 운동" />
         </ul>
       </div>
     </div>
