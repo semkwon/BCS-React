@@ -1,8 +1,11 @@
 import axios from "axios"; // 새 터미널에서 npm i axios하고 import로 불러오기
 import TodoCard from "./components/TodoCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import CreateToDo from "./components/CreateToDo";
 
 function App() {
+  const [toDoList, setToDoList] = useState();
+
   const getToDoList = async () => {
     try {
       //axios 요청
@@ -10,7 +13,12 @@ function App() {
         `${process.env.REACT_APP_BACKEND_URL}/todo`
       );
 
-      console.log(response);
+      if (response.status !== 200) {
+        alert("요청을 불러오지 못했습니다.");
+        return;
+      }
+
+      setToDoList(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -32,21 +40,12 @@ function App() {
           나무 베는데 한 시간이 주어진다면, 도끼를 가는데 45분을 쓰겠다,
           에비브러햄 링컨
         </div>
-        <form className="flex mt-2">
-          <input
-            className="grow border-2 border-pink-200 rounded-lg focus:outline-pink-400 px-2 py-1 text-lg"
-            type="text"
-          />
-          <input
-            className="ml-4 px-2 py-1 bg-pink-300 hover:bg-pink-400 rounded-lg text-gray-50"
-            type="submit"
-            value="새 투두 생성"
-          />
-        </form>
+        <CreateToDo />
         <ul className="mt-16 flex flex-col w-1/2">
-          <TodoCard title="🧘🏻‍♂️ 명상" />
-          <TodoCard title="🧑‍💻 코딩 공부" />
-          <TodoCard title="🏋️ 운동" />
+          {toDoList &&
+            toDoList.map((v, i) => {
+              return <TodoCard key={i} title={v.title} />;
+            })}
         </ul>
       </div>
     </div>
