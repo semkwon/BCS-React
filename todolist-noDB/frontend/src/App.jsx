@@ -39,12 +39,20 @@ function App() {
           나무 베는데 한 시간이 주어진다면, 도끼를 가는데 45분을 쓰겠다,
           에비브러햄 링컨
         </div>
-        <CreateToDo />
+        <CreateToDo getToDoList={getToDoList} />
       </div>
       <div className="mt-16 flex flex-col w-1/2">
         {toDoList
           ? toDoList.map((v, i) => {
-              return <ToDoCard key={i} title={v.title} />;
+              return (
+                <ToDoCard
+                  key={i}
+                  title={v.title}
+                  index={i}
+                  getToDoList={getToDoList}
+                  isDone={v.isDone}
+                />
+              );
             })
           : "로딩중입니다..."}
       </div>
