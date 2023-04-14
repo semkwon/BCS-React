@@ -1,11 +1,12 @@
 import { useState } from "react";
+import LogIn from "./components/LogIn";
 
 function App() {
   // 로그인 했을 때 & 안했을 때 구분할 useState 선언
   const [user, setUser] = useState();
 
   if (!user) {
-    return <div>유저가 아직 로그인 안함</div>;
+    return <LogIn />;
   }
 
   return (
