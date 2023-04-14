@@ -27,7 +27,15 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ ok: false, error: "Not exist user." });
     }
 
-    res.send("임시");
+    const newTodo = await client.todo.create({
+      data: {
+        todo,
+        isDone: false,
+        userId: user.id,
+      },
+    });
+
+    res.json({ ok: true, todo: newTodo });
   } catch (error) {
     console.error(error);
   }
