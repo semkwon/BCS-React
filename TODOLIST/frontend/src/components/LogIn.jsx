@@ -1,9 +1,19 @@
 import { useState } from "react";
+import axios from "axios";
+
 const LogIn = () => {
-  const [createUser, setCreateUser] = useState("");
+  const [createAccount, setCreateAccount] = useState("");
 
   const onSubmitCreateUser = async () => {
     try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/user`,
+        {
+          account: createAccount,
+        }
+      );
+
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -15,8 +25,8 @@ const LogIn = () => {
         <input
           className="grow border-2 border-pink-200 rounded-lg focus:outline-pink-400 px-2 py-1 text-lg"
           type="text"
-          value={createUser}
-          onChange={(e) => setCreateUser(e.target.value)}
+          value={createAccount}
+          onChange={(e) => setCreateAccount(e.target.value)}
         />
         <input
           className="ml-4 px-2 py-1 bg-pink-400 rounded-lg text-gray-50 w-24"
