@@ -4,8 +4,10 @@ import axios from "axios";
 const LogIn = () => {
   const [createAccount, setCreateAccount] = useState("");
 
-  const onSubmitCreateUser = async () => {
+  const onSubmitCreateUser = async (e) => {
     try {
+      e.preventDefault();
+
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/user`,
         {
