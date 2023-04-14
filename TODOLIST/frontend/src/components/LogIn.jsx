@@ -2,9 +2,16 @@ import { useState } from "react";
 const LogIn = () => {
   const [createUser, setCreateUser] = useState("");
 
+  const onSubmitCreateUser = async () => {
+    try {
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
-      <form className="flex mt-2 my-16">
+      <form className="flex mt-2 my-16" onSubmit={onSubmitCreateUser}>
         <input
           className="grow border-2 border-pink-200 rounded-lg focus:outline-pink-400 px-2 py-1 text-lg"
           type="text"
