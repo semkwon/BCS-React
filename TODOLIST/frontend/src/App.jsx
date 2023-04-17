@@ -72,7 +72,7 @@ function App() {
       <div className="mt-16 flex flex-col w-1/2">
         {todos &&
           todos.map((v, i) => {
-            return <TodoCard key={i} />;
+            return <TodoCard key={i} todo={v.todo} isDone={v.isDone} />;
           })}
       </div>
     </div>
