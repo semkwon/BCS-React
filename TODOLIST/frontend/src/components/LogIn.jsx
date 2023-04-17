@@ -28,6 +28,12 @@ const LogIn = ({ setUser }) => {
   const onSubmitLogIn = async (e) => {
     try {
       e.preventDefault();
+
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/user/${account}`
+      );
+
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
