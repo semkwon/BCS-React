@@ -45,6 +45,7 @@ router.post("/", async (req, res) => {
 router.get("/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
+    const { skip } = req.query;
 
     const user = await client.user.findUnique({
       where: {
@@ -60,6 +61,11 @@ router.get("/:userId", async (req, res) => {
       where: {
         userId: parseInt(userId),
       },
+      orderBy: {
+        createdAt: "desc",
+      },
+      skip: parseInt(skip),
+      take: 3,
     });
 
     res.json({ ok: true, todos });
@@ -68,7 +74,7 @@ router.get("/:userId", async (req, res) => {
   }
 });
 
-// 투두 완료 (수정)
+// 투두 완료
 router.put("/:id/done", async (req, res) => {
   try {
     const { id } = req.params;

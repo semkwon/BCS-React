@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const CreateTodo = ({ userId, setTodos, todos }) => {
+const CreateTodo = ({ userId, todos, setTodos }) => {
   const [todo, setTodo] = useState("");
 
   const onSubmitCreateTodo = async (e) => {
@@ -16,7 +16,7 @@ const CreateTodo = ({ userId, setTodos, todos }) => {
         }
       );
 
-      setTodos([...todos, response.data.todo]);
+      setTodos([response.data.todo, ...todos]);
       setTodo("");
     } catch (error) {
       console.error(error);

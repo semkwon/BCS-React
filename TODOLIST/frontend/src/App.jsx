@@ -7,16 +7,18 @@ import CreateTodo from "./components/CreateTodo";
 function App() {
   const [user, setUser] = useState();
   const [todos, setTodos] = useState();
+  const [skip, setSkip] = useState(0);
 
   const getTodos = async () => {
     try {
       if (!user) return;
 
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/todo/${user.id}`
+        `${process.env.REACT_APP_BACKEND_URL}/todo/${user.id}?skip=${skip}`
       );
 
       setTodos(response.data.todos);
+      setSkip(skip + 3);
     } catch (error) {
       console.error(error);
 
@@ -26,6 +28,21 @@ function App() {
 
   const onClickLogOut = () => {
     setUser(undefined);
+  };
+
+  const onClickReload = async () => {
+    try {
+      if (!user) return;
+
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/todo/${user.id}?skip=${skip}`
+      );
+
+      setTodos([...todos, ...response.data.todos]);
+      setSkip(skip + 3);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -64,6 +81,16 @@ function App() {
         </div>
         <CreateTodo userId={user.id} todos={todos} setTodos={setTodos} />
       </div>
+
+      <div className="mt-16">
+        <button
+          className="ml-4 px-4 py-2 w-24 h-24 bg-pink-200 hover:bg-pink-400 rounded-full text-gray-50 text-2xl"
+          onClick={onClickReload}
+        >
+          갱 신
+        </button>
+      </div>
+
       <div className="mt-16 flex flex-col w-1/2">
         {todos &&
           todos.map((v, i) => {
