@@ -34,6 +34,10 @@ function App() {
     console.log(user);
   }, [user]);
 
+  useEffect(() => {
+    console.log(todos);
+  }, [todos]);
+
   if (!user) {
     return <LogIn setUser={setUser} />;
   }
@@ -58,7 +62,7 @@ function App() {
           나무 베는데 한 시간이 주어진다면, 도끼를 가는데 45분을 쓰겠다,
           에비브러햄 링컨
         </div>
-        <CreateTodo userId={user.id} getTodos={getTodos} />
+        <CreateTodo userId={user.id} setTodos={setTodos} />
       </div>
       <div className="mt-16 flex flex-col w-1/2">
         {todos &&

@@ -1,19 +1,22 @@
 import { useState } from "react";
 import axios from "axios";
 
-const CreateTodo = ({ userId, getTodos }) => {
+const CreateTodo = ({ userId, setTodos }) => {
   const [todo, setTodo] = useState("");
 
   const onSubmitCreateTodo = async (e) => {
     try {
       e.preventDefault();
 
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/todo`, {
-        todo,
-        userId,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/todo`,
+        {
+          todo,
+          userId,
+        }
+      );
 
-      getTodos();
+      setTodos([response.data.todo]);
       setTodo("");
     } catch (error) {
       console.error(error);
