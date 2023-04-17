@@ -4,8 +4,8 @@ import TodoCard from "./components/TodoCard";
 import axios from "axios";
 
 function App() {
-  // 로그인 했을 때 & 안했을 때 구분할 useState 선언
   const [user, setUser] = useState();
+  const [todos, setTodos] = useState();
 
   const getTodos = async () => {
     try {
@@ -15,9 +15,11 @@ function App() {
         `${process.env.REACT_APP_BACKEND_URL}/todo/${user.id}`
       );
 
-      console.log(response);
+      setTodos(response.data.todos);
     } catch (error) {
       console.error(error);
+
+      alert("투두리스트를 불러오지 못했습니다.");
     }
   };
 
@@ -25,12 +27,9 @@ function App() {
     setUser(undefined);
   };
 
-  // 투두리스트 가져오기 (유저가 없으면 if문, 있으면 아래에서 투두리스트를 가져오게 되는 useEffect)
   useEffect(() => {
     getTodos();
-  }, [user]);
 
-  useEffect(() => {
     console.log(user);
   }, [user]);
 
@@ -43,7 +42,7 @@ function App() {
       <h1 className="text-4xl font-bold flex items-center">
         {user.account}님 환영합니다~ 😎
         <button
-          className="ml-4 px-2 py-1 bg-pink-300 hover:bg-pink-400 rounded-lg text-gray-50 text-base"
+          className="ml-4 px-2 py-1 bg-pink-200 hover:bg-pink-400 rounded-lg text-gray-50 text-base"
           onClick={onClickLogOut}
         >
           로그아웃
@@ -71,7 +70,10 @@ function App() {
         </form>
       </div>
       <div className="mt-16 flex flex-col w-1/2">
-        <TodoCard />
+        {todos &&
+          todos.map((v, i) => {
+            return <TodoCard key={i} />;
+          })}
       </div>
     </div>
   );
