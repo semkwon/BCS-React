@@ -33,9 +33,11 @@ const LogIn = ({ setUser }) => {
         `${process.env.REACT_APP_BACKEND_URL}/user/${account}`
       );
 
-      console.log(response);
+      setUser(response.data.user);
     } catch (error) {
       console.error(error);
+
+      alert("로그인을 실패하였습니다.");
     }
   };
 

@@ -5,13 +5,25 @@ function App() {
   // 로그인 했을 때 & 안했을 때 구분할 useState 선언
   const [user, setUser] = useState();
 
+  const onClickLogOut = () => {
+    setUser(undefined);
+  };
+
   if (!user) {
     return <LogIn setUser={setUser} />;
   }
 
   return (
     <div className="min-h-screen flex flex-col justify-start items-center pt-16">
-      <h1 className="text-4xl font-bold"> {user.account}님 환영합니다~ 😎</h1>
+      <h1 className="text-4xl font-bold flex items-center">
+        {user.account}님 환영합니다~ 😎
+        <button
+          className="ml-4 px-2 py-1 bg-pink-300 hover:bg-pink-400 rounded-lg text-gray-50 text-base"
+          onClick={onClickLogOut}
+        >
+          로그아웃
+        </button>
+      </h1>
       <div>
         <div className="mt-8 text-sm font-semibold">
           If I only had an hour to chop down a tree, I would spend the first 45
