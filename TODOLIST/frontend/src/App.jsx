@@ -1,14 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogIn from "./components/LogIn";
 import TodoCard from "./components/TodoCard";
+import axios from "axios";
 
 function App() {
   // 로그인 했을 때 & 안했을 때 구분할 useState 선언
   const [user, setUser] = useState();
 
+  const getTodos = async () => {
+    try {
+      if (!user) return;
+
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/todo/${user.id}`
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const onClickLogOut = () => {
     setUser(undefined);
   };
+
+  // 투두리스트 가져오기 (유저가 없으면 if문, 있으면 아래에서 투두리스트를 가져오게 되는 useEffect)
+  useEffect(() => {
+    getTodos();
+  }, [user]);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   if (!user) {
     return <LogIn setUser={setUser} />;
