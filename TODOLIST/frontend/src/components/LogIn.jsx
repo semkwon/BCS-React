@@ -20,7 +20,6 @@ const LogIn = ({ setUser }) => {
     } catch (error) {
       console.error(error);
 
-      // response가 실패했을 때 자동으로 catch로 오기 때문에 여기서 alert를 실행하면 된다.
       alert("계정 생성을 실패하였습니다.");
     }
   };

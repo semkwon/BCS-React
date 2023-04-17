@@ -13,10 +13,13 @@ router.post("/", async (req, res) => {
     if (!todo) {
       return res.status(400).json({ ok: false, error: "Not exist todo." });
     }
+
+    // 클라이언트가 보낸 유저아이디: 바디에써서 보내는거로 틀리게 올 수 있다
     if (!userId) {
       return res.status(400).json({ ok: false, error: "Not exist userId." });
     }
 
+    // 우리가 내용을 포함한 그 유저, 데이터베이스에서 조회한 유저
     const user = await client.user.findUnique({
       where: {
         id: parseInt(userId),
@@ -27,6 +30,7 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ ok: false, error: "Not exist user." });
     }
 
+    // 유저아이디가 있으면 뉴 투두
     const newTodo = await client.todo.create({
       data: {
         todo,
@@ -94,9 +98,11 @@ router.put("/:id/done", async (req, res) => {
     }
 
     const updatedTodo = await client.todo.update({
+      // 조회
       where: {
         id: parseInt(id),
       },
+      // 교체할 부분
       data: {
         isDone: !existTodo.isDone,
       },

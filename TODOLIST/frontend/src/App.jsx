@@ -9,6 +9,7 @@ function App() {
   const [todos, setTodos] = useState();
   const [skip, setSkip] = useState(0);
 
+  // getTodos로 다 처리하면 더 쉬울 수 있지만 불필요한 네트워크 낭비가 많이된다.
   const getTodos = async () => {
     try {
       if (!user) return;
@@ -81,7 +82,6 @@ function App() {
         </div>
         <CreateTodo userId={user.id} todos={todos} setTodos={setTodos} />
       </div>
-
       <div className="mt-16">
         <button
           className="ml-4 px-4 py-2 w-24 h-24 bg-pink-200 hover:bg-pink-400 rounded-full text-gray-50 text-2xl"
@@ -90,11 +90,20 @@ function App() {
           갱 신
         </button>
       </div>
-
       <div className="mt-16 flex flex-col w-1/2">
         {todos &&
           todos.map((v, i) => {
-            return <TodoCard key={i} todo={v.todo} isDone={v.isDone} />;
+            return (
+              <TodoCard
+                key={i}
+                todo={v.todo}
+                isDone={v.isDone}
+                id={v.id}
+                userId={user.id}
+                todos={todos}
+                setTodos={setTodos}
+              />
+            );
           })}
       </div>
     </div>
