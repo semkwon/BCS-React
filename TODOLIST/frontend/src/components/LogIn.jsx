@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const LogIn = () => {
+const LogIn = ({ setUser }) => {
   const [createAccount, setCreateAccount] = useState("");
 
   const onSubmitCreateUser = async (e) => {
@@ -15,7 +15,7 @@ const LogIn = () => {
         }
       );
 
-      console.log(response);
+      setUser(response.data.user);
     } catch (error) {
       console.error(error);
     }

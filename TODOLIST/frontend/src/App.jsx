@@ -6,7 +6,7 @@ function App() {
   const [user, setUser] = useState();
 
   if (!user) {
-    return <LogIn />;
+    return <LogIn setUser={setUser} />;
   }
 
   return (
