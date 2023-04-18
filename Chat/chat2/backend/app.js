@@ -44,11 +44,11 @@ app.post("/chat", async (req, res) => {
       }
     );
 
-    console.log(response);
-
-    res.send("임시");
+    res.json({ ok: true, result: response.data.choices[0].message.content });
   } catch (error) {
     console.error(error);
+
+    res.json({ ok: false, error });
   }
 });
 
