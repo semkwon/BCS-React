@@ -1,71 +1,59 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
+require("dotenv").config();
 
-function App() {
-  const [content, setContent] = useState("");
-  const [result, setResult] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+const express = require("express");
+const cors = require("cors");
+const axios = require("axios");
 
-  const onSubmitChat = async (e) => {
-    try {
-      e.preventDefault();
+const app = express();
 
-      if (!content) return;
+const port = process.env.PORT;
 
-      setIsLoading(true);
+app.use(cors());
+app.use(express.json());
 
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/chat`,
-        {
-          content,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.REACT_APP_SECRET_KEY}`,
-          },
-        }
-      );
+app.get("/", (req, res) => {
+  res.send("Hello, Express!");
+});
 
-      setResult(response.data.result);
+app.post("/chat", async (req, res) => {
+  const { content } = req.body;
 
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
+  try {
+    const bearerToken = req.headers.authorization?.substring(7);
 
-      setIsLoading(false);
+    if (bearerToken !== process.env.SECRET_KEY) {
+      return res
+        .status(400)
+        .json({ ok: false, error: "올바른 키를 입력해주세요." });
     }
-  };
 
-  useEffect(() => {
-    console.log(process.env.REACT_APP_SECRET_KEY);
-  }, []);
+    if (!content) {
+      return res.status(400).json({ ok: false, error: "질문을 입력해주세요." });
+    }
 
-  return (
-    <div className="max-w-screen-md mx-auto min-h-screen flex flex-col justify-start items-center pt-16 px-4">
-      <form className="flex w-full" onSubmit={onSubmitChat}>
-        <input
-          className={`grow border-2 px-2 py-1 border-gray-300 rounded-lg focus:outline-main shadow-lg ${
-            isLoading && "bg-gray-200 text-gray-400"
-          }`}
-          type="text"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          disabled={isLoading}
-        />
-        <input
-          className={`w-24 ml-4 px-2 py-1 border-2 border-main text-main rounded-lg shadow-lg ${
-            isLoading && "bg-main text-white"
-          }`}
-          type="submit"
-          disabled={isLoading}
-          value={isLoading ? "검색중..." : "검색"}
-        />
-      </form>
-      {result && <div className="mt-16 bg-main p-4 text-gray-50">{result}</div>}
-    </div>
-  );
-}
+    const response = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content }],
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPENAI_KEY}`,
+        },
+      }
+    );
+    console.log(response.data.choices[0].message.content);
 
-export default App;
+    res.json({ ok: true, result: response.data.choices[0].message.content });
+  } catch (error) {
+    console.error(error);
+
+    res.json({ ok: false, error }); // 무한로팅에 빠지는 상황을 방지할 수 있다.
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server listening on port: ${port} 🚀`);
+});

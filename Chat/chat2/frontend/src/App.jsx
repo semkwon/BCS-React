@@ -56,7 +56,7 @@ function App() {
         />
         <input
           className={`w-24 ml-4 px-2 py-1 border-2 border-main text-main rounded-lg shadow-lg ${
-            isLoading && "bg-main text-gray-200"
+            isLoading && "bg-main text-white"
           }`}
           type="submit"
           disabled={isLoading}
