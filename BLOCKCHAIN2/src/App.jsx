@@ -29,7 +29,7 @@ function App() {
 
       const balance = await contract.methods.balanceOf(account).call();
 
-      setMyBalance(balance);
+      setMyBalance(web3.utils.fromWei(balance));
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +47,7 @@ function App() {
             </button>
           </div>
           <div className="flex items-center mt-4">
-            {myBalance && <div>{myBalance}</div>}
+            {myBalance && <div>{myBalance} tMatic</div>}
             <button className="ml-2 btn-style" onClick={onClickBalance}>
               잔액 조회
             </button>
