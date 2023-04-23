@@ -1,9 +1,15 @@
 import { useState } from "react";
 import Web3 from "web3";
-import { CONTRACT_ABI, CONTRACT_ADDRESS } from "./web3.config";
+import {
+  CONTRACT_ABI,
+  CONTRACT_ADDRESS,
+  NFT_ABI,
+  NFT_ADDRESS,
+} from "./web3.config";
 
 const web3 = new Web3("https://rpc-mumbai.maticvigil.com");
 const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+const nftContract = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS);
 
 function App() {
   const [account, setAccount] = useState("");
@@ -35,6 +41,22 @@ function App() {
     }
   };
 
+  const onClickMint = async () => {
+    try {
+      const result = await nftContract.methods
+        .mintNft(
+          "https://gateway.pinata.cloud/ipfs/QmWGUHEwEso6V68rXM1kNQQW4jwhfbs6RBFcWsyYzM3Utz"
+        )
+        .send({
+          from: account,
+        });
+
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="bg-red-100 min-h-screen flex justify-center items-center">
       {account ? (
@@ -50,6 +72,11 @@ function App() {
             {myBalance && <div>{myBalance} tMatic</div>}
             <button className="ml-2 btn-style" onClick={onClickBalance}>
               잔액 조회
+            </button>
+          </div>
+          <div className="flex items-center mt-4">
+            <button className="ml-2 btn-style" onClick={onClickMint}>
+              민팅
             </button>
           </div>
         </div>
