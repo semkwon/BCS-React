@@ -9,7 +9,7 @@ function App() {
         method: "eth_requestAccounts",
       });
 
-      console.log(accounts);
+      setAccount(accounts[0]);
     } catch (error) {
       console.error(error);
     }
@@ -17,7 +17,11 @@ function App() {
 
   return (
     <div className="bg-red-100 min-h-screen flex justify-center items-center">
-      <button onClick={onClickAccount}>지갑로그인</button>
+      {account ? (
+        <div>{account}</div>
+      ) : (
+        <button onClick={onClickAccount}>지갑로그인</button>
+      )}
     </div>
   );
 }
