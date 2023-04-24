@@ -24,6 +24,9 @@ function App() {
 
   const onClickMint = async () => {
     try {
+      const mintNft = await contract.methods.mintNft().send({ from: account });
+
+      console.log(mintNft);
     } catch (error) {
       console.error(error);
     }
