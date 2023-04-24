@@ -1,4 +1,11 @@
 import { useState } from "react";
+import Web3 from "web3";
+import { CONTRACT_ABI, CONTRACT_ADDRESS } from "./web3.confing";
+
+// 새로운 웹3객체
+const web3 = new Web3(window.ethereum);
+const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+console.log(contract);
 
 function App() {
   const [account, setAccount] = useState("");
