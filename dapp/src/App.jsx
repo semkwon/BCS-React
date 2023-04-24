@@ -15,10 +15,20 @@ function App() {
     }
   };
 
+  const onClickMint = async () => {
+    try {
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="bg-red-100 min-h-screen flex justify-center items-center">
       {account ? (
-        <div>{account}</div>
+        <div>
+          {account.substring(0, 4)}...{account.substring(account.length - 4)}
+          <button onClick={onClickMint}>민팅</button>
+        </div>
       ) : (
         <button onClick={onClickAccount}>지갑로그인</button>
       )}
