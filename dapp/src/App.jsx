@@ -26,7 +26,19 @@ function App() {
     try {
       const mintNft = await contract.methods.mintNft().send({ from: account });
 
-      console.log(mintNft);
+      if (!mintNft.status) return;
+
+      const balanceOf = await contract.methods.balanceOf(account).call();
+
+      const tokenOfOwnerByIndex = await contract.methods
+        .tokenOfOwnerByIndex(account, parseInt(balanceOf) - 1)
+        .call();
+
+      const tokenURI = await contract.methods
+        .tokenURI(tokenOfOwnerByIndex)
+        .call();
+
+      console.log(tokenURI);
     } catch (error) {
       console.error(error);
     }

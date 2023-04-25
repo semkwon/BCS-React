@@ -46,25 +46,26 @@ function App() {
     try {
       if (!account) return;
 
+      const uri =
+        "https://gateway.pinata.cloud/ipfs/QmZ5ynCXHF5LyFwehgMxQQuxrq3x1hs7zcgo1bQ2QsRCmH";
+
       const result = await nftContract.methods
-        .mintNft(
-          "https://gateway.pinata.cloud/ipfs/QmZ5ynCXHF5LyFwehgMxQQuxrq3x1hs7zcgo1bQ2QsRCmH"
-        )
+        .mintNft(uri)
         .send({ from: account });
 
       if (!result.status) return;
 
-      const balanceOf = await nftContract.methods.balanceOf(account).call();
+      // const balanceOf = await nftContract.methods.balanceOf(account).call();
 
-      const tokenOfOwnerByIndex = await nftContract.methods
-        .tokenOfOwnerByIndex(account, parseInt(balanceOf) - 1)
-        .call();
+      // const tokenOfOwnerByIndex = await nftContract.methods
+      //   .tokenOfOwnerByIndex(account, parseInt(balanceOf) - 1)
+      //   .call();
 
-      const tokenURI = await nftContract.methods
-        .tokenURI(tokenOfOwnerByIndex)
-        .call();
+      // const tokenURI = await nftContract.methods
+      //   .tokenURI(tokenOfOwnerByIndex)
+      //   .call();
 
-      const response = await axios.get(tokenURI);
+      const response = await axios.get(uri);
 
       setNftMetadata(response.data);
     } catch (error) {
@@ -99,6 +100,14 @@ function App() {
                 <img src={nftMetadata.image} alt="NFT" />
                 <div>Name : {nftMetadata.name}</div>
                 <div>Description : {nftMetadata.description}</div>
+                {nftMetadata.attributes.map((v, i) => {
+                  return (
+                    <div key={i}>
+                      <span>{v.trait_type} : </span>
+                      <span>{v.value}</span>
+                    </div>
+                  );
+                })}
               </div>
             )}
             <button className="ml-2 btn-style" onClick={onClickMint}>
