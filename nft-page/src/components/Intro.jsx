@@ -1,4 +1,5 @@
 import { FaChessRook } from "react-icons/fa";
+import { CONTRACT_ADDRESS } from "../web3.config";
 
 const ranNum = Math.floor(Math.random() * 1000) + 1;
 const imgSrc = `${process.env.REACT_APP_IMAGE_URL}/${ranNum}.png`;
@@ -22,6 +23,10 @@ const Intro = () => {
           <div className="bg-main w-6 h-6 rounded-full flex justify-center items-center ml-4 text-gray-950">
             <FaChessRook size={16} />
           </div>
+        </div>
+        <div className="mt-2 flex items-center text-gray-300">
+          by
+          <div className="text-main ml-2">{CONTRACT_ADDRESS}</div>
         </div>
       </div>
     </div>
