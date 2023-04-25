@@ -3,6 +3,10 @@ import { useState } from "react";
 const Nfts = ({ page }) => {
   const [selectedPage, setSelectedPage] = useState(1);
 
+  const onClickPage = (p) => () => {
+    setSelectedPage(p);
+  };
+
   const pageComp = () => {
     let pageArray = [];
 
@@ -13,6 +17,7 @@ const Nfts = ({ page }) => {
           className={`ml-4 text-2xl font-bold hover:text-white ${
             i + 1 === selectedPage ? "text-white" : "text-gray-400"
           }`}
+          onClick={onClickPage(i + 1)}
         >
           {i + 1} <span className="text-base">페이지</span>
         </button>
