@@ -28,6 +28,12 @@ const Intro = () => {
           by
           <div className="text-main ml-2">{CONTRACT_ADDRESS}</div>
         </div>
+        <div className="mt-2 text-gray-300">
+          다덴부란(.env란 "environment"의 약어)은 소프트웨어 개발에서 자주
+          사용되는 파일 형식 중 하나입니다. 이 파일은 소프트웨어 개발자들이
+          프로젝트에서 사용되는 환경 변수(environment variable)를 저장하는 데
+          사용됩니다.
+        </div>
       </div>
     </div>
   );
