@@ -7,7 +7,11 @@ const imgSrc = `${process.env.REACT_APP_IMAGE_URL}/${ranNum}.png`;
 const Intro = ({ totalNft, mintedNft, myNft }) => {
   return (
     <div className="bg-gradient-to-b from-transparent to-red-400 pt-10">
-      <div className="max-w-screen-xl mx-auto px-4">
+      <div className="max-w-screen-xl mx-auto px-4 relative">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-yellow-300 text-9xl truncate opacity-40">
+          Da Den Bu
+        </div>
+
         <div className="relative">
           <img
             className="absolute w-40 h-40 rounded-full"
@@ -45,7 +49,7 @@ const Intro = ({ totalNft, mintedNft, myNft }) => {
           </div>
           <div className="ml-4">
             <div className="font-bold">{myNft}</div>
-            <div className="text-gray-300">나의 NFT</div>
+            <div className="text-gray-300">내 NFT</div>
           </div>
         </div>
       </div>
