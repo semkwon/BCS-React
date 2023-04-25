@@ -1,15 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Main from "./pages/main";
+import Detail from "./pages/detail";
+import Header from "./components/Header";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="bg-red-100">
+        <Header />
         <Routes>
-          <Route path="/" />
-          <Route path=":tokenId" />
+          <Route path="/" element={<Main />} />
+          <Route path="/:tokenId" element={<Detail />} />
         </Routes>
       </div>
-      ;
     </BrowserRouter>
   );
 }
