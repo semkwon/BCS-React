@@ -4,7 +4,7 @@ import { CONTRACT_ADDRESS } from "../web3.config";
 const ranNum = Math.floor(Math.random() * 1000) + 1;
 const imgSrc = `${process.env.REACT_APP_IMAGE_URL}/${ranNum}.png`;
 
-const Intro = () => {
+const Intro = ({ totalNft }) => {
   return (
     <div className="bg-gradient-to-b from-transparent to-red-400 pt-10">
       <div className="max-w-screen-xl mx-auto px-4">
@@ -34,6 +34,7 @@ const Intro = () => {
           프로젝트에서 사용되는 환경 변수(environment variable)를 저장하는 데
           사용됩니다.
         </div>
+        <div>{totalNft}</div>
       </div>
     </div>
   );
