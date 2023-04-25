@@ -10,6 +10,7 @@ console.log(contract);
 
 const Main = ({ account }) => {
   const [totalNft, setTotalNft] = useState(0);
+  const [mintedNft, setMintedNft] = useState(0);
 
   const getTotalNft = async () => {
     try {
@@ -25,6 +26,11 @@ const Main = ({ account }) => {
 
   const getMintedNft = async () => {
     try {
+      if (!contract) return;
+
+      const response = await contract.methods.totalSupply().call();
+
+      setMintedNft(response);
     } catch (error) {
       console.error(error);
     }
@@ -39,11 +45,12 @@ const Main = ({ account }) => {
 
   useEffect(() => {
     getTotalNft();
+    getMintedNft();
   }, []);
 
   return (
     <div>
-      <Intro totalNft={totalNft} />
+      <Intro totalNft={totalNft} mintedNft={mintedNft} />
     </div>
   );
 };
