@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import NftCard from "./NftCard";
 
-const Nfts = ({ page }) => {
+const Nfts = ({ page, mintedNft }) => {
   const [selectedPage, setSelectedPage] = useState(1);
   const [nfts, setNfts] = useState();
 
@@ -69,7 +69,12 @@ const Nfts = ({ page }) => {
         {nfts ? (
           nfts.map((v, i) => {
             return (
-              <NftCard key={i} tokenId={v.tokenId} metadata={v.metadata} />
+              <NftCard
+                key={i}
+                tokenId={v.tokenId}
+                metadata={v.metadata}
+                mintedNft={mintedNft}
+              />
             );
           })
         ) : (
