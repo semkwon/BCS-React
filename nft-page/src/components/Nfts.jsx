@@ -1,67 +1,83 @@
-import Web3 from "web3";
-import Intro from "../components/Intro";
-import { CONTRACT_ABI, CONTRACT_ADDRESS } from "../web3.config";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import Nfts from "../components/Nfts";
+import NftCard from "./NftCard";
 
-const web3 = new Web3(window.ethereum);
-const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+const Nfts = ({ page }) => {
+  const [selectedPage, setSelectedPage] = useState(1);
+  const [nfts, setNfts] = useState();
 
-const Main = ({ account }) => {
-  const [totalNft, setTotalNft] = useState(0);
-  const [mintedNft, setMintedNft] = useState(0);
-  const [myNft, setMyNft] = useState(0);
-  const [page, setPage] = useState(1);
-
-  const getTotalNft = async () => {
+  const getNfts = async (p) => {
     try {
-      if (!contract) return;
+      let nftArray = [];
 
-      const response = await contract.methods.totalNft().call();
+      setNfts();
 
-      setTotalNft(response);
+      for (let i = 0; i < 10; i++) {
+        const tokenId = i + 1 + (p - 1) * 10;
+
+        let response = await axios.get(
+          `${process.env.REACT_APP_JSON_URL}/${tokenId}.json`
+        );
+
+        nftArray.push({ tokenId, metadata: response.data });
+      }
+
+      setNfts(nftArray);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
-  const getMintedNft = async () => {
-    try {
-      if (!contract) return;
 
-      const response = await contract.methods.totalSupply().call();
+  const onClickPage = (p) => () => {
+    setSelectedPage(p);
 
-      setMintedNft(response);
-      setPage(parseInt((parseInt(response) - 1) / 10) + 1);
-    } catch (error) {
-      console.error(error);
-    }
+    getNfts(p);
   };
-  const getMyNft = async () => {
-    try {
-      if (!contract || !account) return;
 
-      const response = await contract.methods.balanceOf(account).call();
+  const pageComp = () => {
+    let pageArray = [];
 
-      setMyNft(response);
-    } catch (error) {
-      console.error(error);
+    for (let i = 0; i < page; i++) {
+      pageArray.push(
+        <button
+          key={i}
+          className={`ml-4 text-2xl font-bold hover:text-white ${
+            i + 1 === selectedPage ? "text-white" : "text-gray-400"
+          }`}
+          onClick={onClickPage(i + 1)}
+        >
+          {i + 1} <span className="text-base">페이지</span>
+        </button>
+      );
     }
+
+    return pageArray;
   };
 
   useEffect(() => {
-    getTotalNft();
-    getMintedNft();
+    console.log(nfts);
+  }, [nfts]);
+
+  useEffect(() => {
+    getNfts(1);
   }, []);
-  useEffect(() => {
-    getMyNft();
-  }, [account]);
 
   return (
-    <>
-      <Intro totalNft={totalNft} mintedNft={mintedNft} myNft={myNft} />
-      <Nfts page={page} />
-    </>
+    <div className="max-w-screen-xl mx-auto pt-4">
+      <div>{pageComp()}</div>
+      <ul className="mt-8">
+        {nfts ? (
+          nfts.map((v, i) => {
+            return (
+              <NftCard key={i} tokenId={v.tokenId} metadata={v.metadata} />
+            );
+          })
+        ) : (
+          <div>로딩중입니다...</div>
+        )}
+      </ul>
+    </div>
   );
 };
 
-export default Main;
+export default Nfts;

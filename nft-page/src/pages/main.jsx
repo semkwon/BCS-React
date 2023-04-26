@@ -7,8 +7,6 @@ import Nfts from "../components/Nfts";
 const web3 = new Web3(window.ethereum);
 const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
-console.log(contract);
-
 const Main = ({ account }) => {
   const [totalNft, setTotalNft] = useState(0);
   const [mintedNft, setMintedNft] = useState(0);
@@ -26,7 +24,6 @@ const Main = ({ account }) => {
       console.error(error);
     }
   };
-
   const getMintedNft = async () => {
     try {
       if (!contract) return;
@@ -39,7 +36,6 @@ const Main = ({ account }) => {
       console.error(error);
     }
   };
-
   const getMyNft = async () => {
     try {
       if (!contract || !account) return;
@@ -56,7 +52,6 @@ const Main = ({ account }) => {
     getTotalNft();
     getMintedNft();
   }, []);
-
   useEffect(() => {
     getMyNft();
   }, [account]);
