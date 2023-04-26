@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 const web3 = new Web3(window.ethereum);
 const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
-console.log(contract);
 const Main = () => {
   const [totalNft, setTotalNft] = useState(0);
+  const [mintedNft, setMintedNft] = useState(0);
 
   const getTotalNft = async () => {
     try {
@@ -24,8 +24,23 @@ const Main = () => {
     }
   };
 
+  const getMintedNft = async () => {
+    try {
+      if (!contract) return;
+
+      const response = await contract.methods.mintedNft().call();
+
+      console.log(response);
+
+      setTotalNft(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getTotalNft();
+    getMintedNft();
   }, []);
 
   return (
