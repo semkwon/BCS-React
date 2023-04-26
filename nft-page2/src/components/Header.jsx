@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = ({ account, setAccount }) => {
   const onClickAccount = async () => {
     try {
@@ -13,7 +15,9 @@ const Header = ({ account, setAccount }) => {
 
   return (
     <header className="max-w-screen-xl mx-auto p-4 flex justify-between font-bold">
-      <div className="ml-1 text-xl">Ble-Chess</div>
+      <Link to="/">
+        <div className="ml-1 text-xl">Ble-Chess</div>
+      </Link>
       <div className="flex items-center">
         {account ? (
           <div>
