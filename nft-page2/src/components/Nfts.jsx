@@ -67,7 +67,7 @@ const Nfts = ({ page, mintedNft }) => {
             <img src={v.metadata.image} alt={v.metadata.name} />
             <div># {v.tokenId}</div>
             <Link to={`/${v.tokenId}`}>
-              <button>Detail</button>
+              <button disabled={parseInt(mintedNft) < v.tokenId}>Detail</button>
             </Link>
           </div>
         );
