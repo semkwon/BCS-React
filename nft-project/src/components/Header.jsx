@@ -5,7 +5,19 @@ import { HiOutlineWallet } from "react-icons/hi2";
 
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ account, setAccount }) {
+  const onClickAccount = async () => {
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      setAccount(accounts[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <header className="max-w-screen-xl mx-auto py-4 pt-8 flex justify-between items-center text-blue-900 font-bold">
       <Link to="/">
@@ -23,7 +35,14 @@ export default function Header() {
       <div className="flex items-center">
         <RxDiscordLogo size={27} className="mx-4" />
         <TfiTwitter size={27} className="mx-4" />
-        <HiOutlineWallet size={27} className="mx-4" />
+
+        {account ? (
+          <div>{account}</div>
+        ) : (
+          <button onClick={onClickAccount}>
+            <HiOutlineWallet size={27} className="mx-4" />
+          </button>
+        )}
       </div>
     </header>
   );
