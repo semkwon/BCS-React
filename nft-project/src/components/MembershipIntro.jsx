@@ -6,7 +6,7 @@ const ranNum = Math.floor(Math.random() * 30) + 1;
 const imgSrc = `${process.env.REACT_APP_IMAGE_URL}/${ranNum}.png`;
 console.log(imgSrc);
 
-export default function Membership() {
+export default function MembershipIntro({ totalNft }) {
   return (
     <div>
       <div className="max-w-screen-xl mx-auto">
@@ -31,6 +31,12 @@ export default function Membership() {
           <div className="text-main ml-2">{CONTRACT_ADDRESS}</div>
         </div>
         <div className="mt-2">SKY PASS NFT는</div>
+        <div className="py-4 text-center flex">
+          <div>
+            <div className="font-bold ">{totalNft}</div>
+            <div>총 NFT</div>
+          </div>
+        </div>
       </div>
     </div>
   );
