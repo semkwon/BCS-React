@@ -25,7 +25,27 @@ const Detail = () => {
 
   useEffect(() => console.log(metadata), [metadata]);
 
-  return <div>Detail</div>;
+  return (
+    <div>
+      {metadata && (
+        <>
+          <img src={metadata.image} alt={metadata.name} />
+          <div>{metadata.name}</div>
+          <div>{metadata.description}</div>
+          <ul>
+            {metadata.attributes.map((v, i) => {
+              return (
+                <li>
+                  <div>{v.trait_type}</div>
+                  <div>{v.value}</div>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default Detail;
