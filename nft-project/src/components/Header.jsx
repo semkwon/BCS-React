@@ -26,18 +26,23 @@ export default function Header({ account, setAccount }) {
           <div className="text-2xl">SKY PASS</div>
         </div>
       </Link>
-      <div className="flex items-center">
-        <div className="text-2xl mx-8">예매</div>
-        <div className="text-2xl mx-8">공항</div>
-        <div className="text-2xl mx-8">기내</div>
-        <div className="text-2xl mx-8">Membership</div>
+      <div className="flex">
+        <div className="text-2xl p-1 mx-8">예매</div>
+        <div className="text-2xl p-1 mx-8">공항</div>
+        <div className="text-2xl p-1 mx-8">기내</div>
+        <div className="text-2xl p-1 mx-8">Membership</div>
       </div>
       <div className="flex items-center">
         <RxDiscordLogo size={27} className="mx-4" />
         <TfiTwitter size={27} className="mx-4" />
 
         {account ? (
-          <div>{account}</div>
+          <div className="flex items-center p-2 bg-blue-200 rounded-full">
+            <div className="ml-1">
+              {account.substring(0, 4)}...
+              {account.substring(account.length - 4)}
+            </div>
+          </div>
         ) : (
           <button onClick={onClickAccount}>
             <HiOutlineWallet size={27} className="mx-4" />
