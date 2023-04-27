@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const Nfts = ({ page }) => {
+const Nfts = ({ page, mintedNft }) => {
   const [selectedPage, setSelectedPage] = useState(1);
   const [nfts, setNfts] = useState();
 
@@ -62,7 +63,12 @@ const Nfts = ({ page }) => {
       {nfts?.map((v, i) => {
         return (
           <div key={i}>
+            {parseInt(mintedNft) < v.tokenId && <div>Not Minted</div>}
             <img src={v.metadata.image} alt={v.metadata.name} />
+            <div># {v.tokenId}</div>
+            <Link to={`/${v.tokenId}`}>
+              <button>Detail</button>
+            </Link>
           </div>
         );
       })}
