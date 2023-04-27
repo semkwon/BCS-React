@@ -39,6 +39,7 @@ const Nfts = ({ page }) => {
           key={i}
           onClick={() => {
             setSelectedPage(i + 1);
+            getNfts(i + 1);
           }}
         >
           {i + 1} 페이지
@@ -58,6 +59,13 @@ const Nfts = ({ page }) => {
   return (
     <div>
       <div>{pageComp()}</div>
+      {nfts?.map((v, i) => {
+        return (
+          <div key={i}>
+            <img src={v.metadata.image} alt={v.metadata.name} />
+          </div>
+        );
+      })}
     </div>
   );
 };
