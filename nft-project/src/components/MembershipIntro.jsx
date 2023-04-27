@@ -4,12 +4,14 @@ import { CONTRACT_ADDRESS } from "../web3.config";
 
 const ranNum = Math.floor(Math.random() * 30) + 1;
 const imgSrc = `${process.env.REACT_APP_IMAGE_URL}/${ranNum}.png`;
-console.log(imgSrc);
 
-export default function MembershipIntro({ totalNft }) {
+export default function MembershipIntro({ totalNft, mintedNft, myNft }) {
   return (
     <div>
       <div className="max-w-screen-xl mx-auto">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-purple-600 text-9xl truncate opacity-40 point-event-none">
+          SKY PASS
+        </div>
         <div className="relative">
           <img
             className="absolute w-40 h-40 rounded-full"
@@ -35,6 +37,14 @@ export default function MembershipIntro({ totalNft }) {
           <div>
             <div className="font-bold ">{totalNft}</div>
             <div>총 NFT</div>
+          </div>
+          <div className="ml-4">
+            <div className="font-bold">{mintedNft}</div>
+            <div>발행된 NFT</div>
+          </div>
+          <div className="ml-4">
+            <div className="font-bold">{myNft}</div>
+            <div>나의 NFT</div>
           </div>
         </div>
       </div>

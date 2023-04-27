@@ -14,9 +14,12 @@ function App() {
         <Header account={account} setAccount={setAccount} />
 
         <Routes>
-          <Route path="/" element={<Main account={account} />} />
+          <Route path="/" element={<Main />} />
           <Route path="/:tokenId" element={<Detail />} />
-          <Route path="/membership" element={<MembershipMain />} />
+          <Route
+            path="/membership"
+            element={<MembershipMain account={account} />}
+          />
         </Routes>
       </div>
     </BrowserRouter>
