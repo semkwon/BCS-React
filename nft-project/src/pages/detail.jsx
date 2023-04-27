@@ -1,5 +1,6 @@
 import React from "react";
+import Membership from "../components/Membership";
 
 export default function Detail() {
-  return <div>Detail</div>;
+  return <div>detail</div>;
 }

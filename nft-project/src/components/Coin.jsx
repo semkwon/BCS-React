@@ -15,8 +15,6 @@ export default function Coin() {
         { symbol: "ETH", price: response.data[1].trade_price },
         { symbol: "MATIC", price: response.data[2].trade_price },
       ]);
-
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -27,12 +25,12 @@ export default function Coin() {
   }, []);
 
   return (
-    <div className="flex justify-end mr-20">
+    <div className="flex justify-end max-w-screen-xl mx-auto">
       {coinPrice && (
         <ul className="flex items-center text-gray-400 text-sm">
           {coinPrice.map((v, i) => {
             return (
-              <li key={i} className="ml-2">
+              <li key={i} className="mr-2">
                 {v.symbol}: ₩ {(v.price / 1000).toLocaleString()}
               </li>
             );

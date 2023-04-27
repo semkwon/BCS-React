@@ -1,5 +1,10 @@
 import React from "react";
+import airplane2 from "../images/airplane2.jpg";
 
 export default function Intro() {
-  return <div>Intro</div>;
+  return (
+    <div>
+      <img src={airplane2} />
+    </div>
+  );
 }

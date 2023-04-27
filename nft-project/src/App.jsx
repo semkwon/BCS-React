@@ -3,7 +3,7 @@ import Main from "./pages/main";
 import Detail from "./pages/detail";
 import Header from "./components/Header";
 import { useState } from "react";
-import Coin from "./components/Coin";
+import Membership from "./components/Membership";
 
 function App() {
   const [account, setAccount] = useState("");
@@ -12,10 +12,11 @@ function App() {
     <BrowserRouter>
       <div className="bg-blue-100 min-h-screen">
         <Header account={account} setAccount={setAccount} />
-        <Coin />
+
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main account={account} />} />
           <Route path="/:tokenId" element={<Detail />} />
+          <Route path="/membership" element={<Membership />} />
         </Routes>
       </div>
     </BrowserRouter>
