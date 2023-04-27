@@ -3,7 +3,10 @@ import { RxDiscordLogo } from "react-icons/rx";
 import { TfiTwitter } from "react-icons/tfi";
 import { HiOutlineWallet } from "react-icons/hi2";
 
+import axios from "axios";
+
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Header({ account, setAccount }) {
   const onClickAccount = async () => {
@@ -32,6 +35,7 @@ export default function Header({ account, setAccount }) {
         <div className="text-2xl p-1 mx-8">기내</div>
         <div className="text-2xl p-1 mx-8">Membership</div>
       </div>
+
       <div className="flex items-center">
         <RxDiscordLogo size={27} className="mx-4" />
         <TfiTwitter size={27} className="mx-4" />
@@ -52,3 +56,15 @@ export default function Header({ account, setAccount }) {
     </header>
   );
 }
+
+// const getExchangeRate = async () => {
+//   try {
+//     const response = await axios.get(
+//       `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${process.env.REACT_APP_AUTH_KEY}&searchdate=20230420&data=AP01`
+//     );
+
+//     console.log(response);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
