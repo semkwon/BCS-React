@@ -10,7 +10,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="bg-blue-100 min-h-screen">
+      <div className="min-h-screen">
         <Header account={account} setAccount={setAccount} />
 
         <Routes>

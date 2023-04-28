@@ -9,7 +9,7 @@ export default function MembershipIntro({ totalNft, mintedNft, myNft }) {
   return (
     <div>
       <div className="max-w-screen-xl mx-auto">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-purple-600 text-9xl truncate opacity-40 point-event-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-main text-9xl truncate opacity-40 point-event-none">
           SKY PASS
         </div>
         <div className="relative">

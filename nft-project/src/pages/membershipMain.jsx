@@ -32,7 +32,7 @@ export default function MembershipMain({ account }) {
       const response = await contract.methods.totalSupply().call();
 
       setMintedNft(response);
-      setPage(parseInt((parseInt(response) - 1) / 10) + 1);
+      setPage(parseInt((parseInt(response) - 1) / 12) + 1);
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +60,7 @@ export default function MembershipMain({ account }) {
   }, [account]);
 
   return (
-    <div>
+    <div className="bg-blue-100 min-h-screen">
       <MembershipIntro
         totalNft={totalNft}
         mintedNft={mintedNft}
