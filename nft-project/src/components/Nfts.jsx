@@ -59,7 +59,7 @@ const Nfts = ({ page, mintedNft }) => {
       <div className="max-w-screen-xl mx-auto pt-4 mb-3">{pageComp()}</div>
       <div className="max-w-screen bg-white">
         <div className="max-w-screen-xl mx-auto pt-1 ">
-          <ul className="mt-8 grid grid-cols-1 xl:grid-cols-3 justify-items-center gap-16">
+          <ul className="mt-8 grid grid-cols-1 xl:grid-cols-3 justify-items-center gap-16 ">
             {nfts ? (
               nfts.map((v, i) => {
                 return (
