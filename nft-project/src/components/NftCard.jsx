@@ -3,9 +3,15 @@ import { BsAirplaneFill } from "react-icons/bs";
 
 import { Link } from "react-router-dom";
 
-export default function NftCard({ tokenId, metadata }) {
+export default function NftCard({ tokenId, metadata, mintedNft }) {
   return (
-    <div className="rounded-2xl bg-blue-800 pb-4">
+    <div className="rounded-2xl bg-blue-800 pb-4 relative">
+      {parseInt(mintedNft) < tokenId && (
+        <div className="absolute bg-black w-full h-full bg-opacity-50 rounded-2xl flex justify-center items-center text-4xl font-bold">
+          Not Minted.
+        </div>
+      )}
+
       <img className="rounded-t-2xl" src={metadata.image} alt={metadata.name} />
       <div className="mt-4 text-xl font-bold flex items-center px-4 text-white">
         SKY PASS

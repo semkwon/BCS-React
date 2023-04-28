@@ -15,7 +15,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/:tokenId" element={<Detail />} />
+          <Route path="/membership/:tokenId" element={<Detail />} />
           <Route
             path="/membership"
             element={<MembershipMain account={account} />}

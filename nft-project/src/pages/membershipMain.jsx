@@ -66,7 +66,7 @@ export default function MembershipMain({ account }) {
         mintedNft={mintedNft}
         myNft={myNft}
       />
-      <Nfts page={page} />
+      <Nfts page={page} mintedNft={mintedNft} />
     </div>
   );
 }

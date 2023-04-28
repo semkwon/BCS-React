@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import NftCard from "./NftCard";
 
-const Nfts = ({ page }) => {
+const Nfts = ({ page, mintedNft }) => {
   const [selectedPage, setSelectedPage] = useState("1");
   const [nfts, setNfts] = useState();
 
@@ -22,7 +22,7 @@ const Nfts = ({ page }) => {
       }
       setNfts(nftArray);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -31,10 +31,6 @@ const Nfts = ({ page }) => {
     getNfts(p);
   };
 
-  useEffect(() => {
-    console.log(page);
-  }, [page]);
-
   const pageComp = () => {
     let pageArray = [];
 
@@ -42,7 +38,7 @@ const Nfts = ({ page }) => {
       pageArray.push(
         <button
           key={i}
-          className={`ml-4 text-2xl font-bold hover:text-blue-600 ${
+          className={`mr-4 text-2xl font-bold hover:text-blue-600 ${
             i + 1 === selectedPage ? "text-blue-600" : "text-blue-900"
           }`}
           onClick={onClickPage(i + 1)}
@@ -58,24 +54,29 @@ const Nfts = ({ page }) => {
     getNfts(1);
   }, []);
 
-  useEffect(() => {
-    console.log(nfts);
-  }, [nfts]);
-
   return (
-    <div className="max-w-screen-xl mx-auto pt-4">
-      <div>{pageComp()}</div>
-      <ul className="mt-8 grid grid-cols-1 xl:grid-cols-3 justify-items-center gap-16">
-        {nfts ? (
-          nfts.map((v, i) => {
-            return (
-              <NftCard key={i} tokenId={v.tokenId} metadata={v.metadata} />
-            );
-          })
-        ) : (
-          <div>로딩중입니다...</div>
-        )}
-      </ul>
+    <div>
+      <div className="max-w-screen-xl mx-auto pt-4 mb-3">{pageComp()}</div>
+      <div className="max-w-screen bg-white">
+        <div className="max-w-screen-xl mx-auto pt-1 ">
+          <ul className="mt-8 grid grid-cols-1 xl:grid-cols-3 justify-items-center gap-16">
+            {nfts ? (
+              nfts.map((v, i) => {
+                return (
+                  <NftCard
+                    key={i}
+                    tokenId={v.tokenId}
+                    metadata={v.metadata}
+                    mintedNft={mintedNft}
+                  />
+                );
+              })
+            ) : (
+              <div>로딩중입니다...</div>
+            )}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
